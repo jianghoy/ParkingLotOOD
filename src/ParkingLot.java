@@ -36,8 +36,7 @@ public class ParkingLot {
 
     public boolean leave(Vehicle v) {
         for (Level l : levels) {
-            if (l.park(v)) {
-                l.leave(v);
+            if (l.leave(v)) {
                 return true;
             }
         }
