@@ -13,6 +13,13 @@ public class ParkingLot {
                 return true;
             }
         }
+        if (adjust()) {
+            for (Level l: levels) {
+                if (l.hasSpot(v)) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 

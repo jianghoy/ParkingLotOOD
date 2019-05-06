@@ -32,7 +32,29 @@ public class TestParkingLot {
 
     @Test
     void testOptimization() {
-
+        ParkingLot lot = new ParkingLot(4,10);
+        List<Car> carList = new ArrayList<>();
+        for (int i = 0; i < 40; i++) {
+            Car v = new Car();
+            assert lot.hasSpot(v);
+            assert lot.park(v);
+            if (i >= 30) {
+                carList.add(v);
+            }
+        }
+        for (Car v : carList) {
+            assert lot.leave(v);
+        }
+        List<Truck> truckList = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+          Truck t = new Truck();
+          assert lot.hasSpot(t);
+          assert lot.park(t);
+          truckList.add(t);
+        }
+        for (Truck t : truckList) {
+            assert lot.leave(t);
+        }
     }
 
 }
