@@ -23,6 +23,14 @@ public class ParkingLot {
                 return  true;
             }
         }
+        if (adjust()) {
+            for (Level l : levels) {
+                if (l.hasSpot(v)) {
+                    l.park(v);
+                    return  true;
+                }
+            }
+        }
         return false;
     }
 
@@ -32,6 +40,25 @@ public class ParkingLot {
                 l.leave(v);
                 return true;
             }
+        }
+        return false;
+    }
+
+    private boolean adjust(){
+        Vehicle v = null;
+        for (Level l : levels) {
+            v = l.optimize();
+            if (v != null) {
+                break;
+            }
+        }
+        if (v != null) {
+            for (Level l : levels) {
+                if (l.strictPark(v)) {
+                    return true;
+                }
+            }
+            park(v);
         }
         return false;
     }

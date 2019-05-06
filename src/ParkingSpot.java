@@ -10,6 +10,13 @@ public class ParkingSpot {
         return currentVehicle == null && size.getSize() >= v.getSize().getSize();
     }
 
+    boolean strictFit(Vehicle v){
+        return currentVehicle == null && size.getSize() == v.getSize().getSize();
+    }
+
+    boolean unoptimizedParking() {
+        return currentVehicle != null && currentVehicle.getSize().getSize() < size.getSize();
+    }
     void park(Vehicle v){
         this.currentVehicle = v;
     }

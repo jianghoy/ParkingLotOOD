@@ -4,11 +4,16 @@ import java.util.List;
 
 public class Level {
     private final List<ParkingSpot> spots;
+    private final int numCompact;
+    private final int numLarge;
+
     Level (int n) {
         this(n/2,n-n/2);
     }
     Level (int numOfCompactSpots,int numOfLargeSpots) {
         List<ParkingSpot> list = new ArrayList<>(numOfCompactSpots+numOfLargeSpots);
+        numCompact = numOfCompactSpots;
+        numLarge = numOfLargeSpots;
         for (int i = 0; i < numOfCompactSpots; i++) {
             list.add(new ParkingSpot(VehicleSize.Compact));
         }
@@ -36,6 +41,27 @@ public class Level {
             }
         }
         return false;
+    }
+
+    boolean strictPark(Vehicle v){
+        for (ParkingSpot ps : spots) {
+            if (ps.strictFit(v)) {
+                ps.park(v);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    Vehicle optimize() {
+        for (ParkingSpot ps : spots) {
+            if (ps.unoptimizedParking()) {
+                Vehicle v = ps.getCurrentVehicle();
+                ps.leave();
+                return v;
+            }
+        }
+        return null;
     }
 
     boolean leave(Vehicle v) {
